@@ -19,7 +19,7 @@ def problems(request):
         return render(request , 'problems.html' , { 'problems' : problems})
     else:
         messages.success(request , "Please login to solve problems!!", extra_tags='alert alert-info')
-        return HttpResponseRedirect('/judge/login')
+        return HttpResponseRedirect('/login')
 
 def problem(request , problem_id):
     if request.user.is_authenticated :
@@ -30,7 +30,7 @@ def problem(request , problem_id):
         return render(request, 'problem.html', context)
     else:
         messages.success(request , "Please login to solve problems!!", extra_tags='alert alert-info')
-        return HttpResponseRedirect('/judge/login')
+        return HttpResponseRedirect('/login')
     
 
 def submit(request , pid):
@@ -70,7 +70,7 @@ def submit(request , pid):
                     )
                     sol.save()
                     file.close()
-                    return HttpResponseRedirect("/judge/submit/correct_ans/")
+                    return HttpResponseRedirect("/submit/correct_ans/")
                 else:
                     file =  open('temp.cpp')
                     myfile = File(file)
@@ -83,7 +83,7 @@ def submit(request , pid):
                     )
                     sol.save()
                     file.close()
-                    return HttpResponseRedirect("/judge/submit/wrong_ans/")
+                    return HttpResponseRedirect("/submit/wrong_ans/")
         elif codeInEditor:
             
             byte_content = codeInEditor.encode()
@@ -115,7 +115,7 @@ def submit(request , pid):
                     )
                     sol.save()
                     file.close()
-                    return HttpResponseRedirect("/judge/submit/correct_ans/")
+                    return HttpResponseRedirect("/submit/correct_ans/")
                 else:
                     file =  open('temp.cpp')
                     myfile = File(file)
@@ -128,7 +128,7 @@ def submit(request , pid):
                     )
                     sol.save()
                     file.close()
-                    return HttpResponseRedirect("/judge/submit/wrong_ans/")
+                    return HttpResponseRedirect("/submit/wrong_ans/")
             # return HttpResponse('Yep! I got your code')
         else:
             return HttpResponse('No code file uploaded!!')
@@ -165,10 +165,10 @@ def register_verify(request):
             new_user.first_name = firstname
             new_user.save()
             messages.success(request , "Registration Successful", extra_tags='alert alert-success')
-            return HttpResponseRedirect('/judge/register/')
+            return HttpResponseRedirect('/register/')
         else:
             messages.succes(request , "Both passsword should be same.", extra_tags='alert alert-danger')
-            return HttpResponseRedirect('/judge/register/')
+            return HttpResponseRedirect('/register/')
     else:
         return HttpResponse("Usage: Post method is not used.")
         
@@ -183,14 +183,14 @@ def login_check(request):
         if user is not None:
             login(request, user)
             messages.success(request , "Logged in successfully.", extra_tags='alert alert-success')
-            return HttpResponseRedirect('/judge')
+            return HttpResponseRedirect('/')
         else:
             messages.success(request , "Log in failed!! check username or password.", extra_tags='alert alert-danger')
-            return HttpResponseRedirect('/judge/login/')
+            return HttpResponseRedirect('/login/')
     else:
         return HttpResponse("Usage: Method used is not POST.")
 
 def log_out(request):
     logout(request)
     messages.success(request , "Logout succesfully.", extra_tags='alert alert-success')
-    return HttpResponseRedirect('/judge')
+    return HttpResponseRedirect('/')
