@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Submission- Status | OJ{% endblock title %}
+{% block css %}
+ <style>
+    body{
+        background-color: #ffdf9596;
+    }
+ </style>
+{% endblock css %}
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'judge:index' %}">
+            <img src="https://img.icons8.com/nolan/48/ios-photos.png">
+            Online Judge
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'judge:index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'judge:problems' %}">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">About Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="d-flex justify-content-center">
+    {% if status == 'wrong_ans' %}
+    <div class="card m-4  bg-transparent p-2" style="width: 30rem;">
+        <img src="{% static 'images/wrong_ans1.png' %}" class="card-img-top" alt="...">
+        <div class="card-body text-center border-top border-warning">
+            <h5 class="card-text text-danger fw-bold">You are doing great.<br>
+                It worth one more try...</h5>
+            <a href="{% url 'judge:problems' %}" class="card-link fw-bold fs-5 btn btn-outline-success px-4 m-3">Retry</a>
+            <a href="{% url 'judge:submissions' %}" class="card-link fw-bold fs-5 btn btn-outline-success m-3">Submissions</a>
+        </div>
+    </div>
+    {% elif status == 'correct_ans' %}
+    <div class="card m-4 p-2 bg-transparent" style="width: 30rem;">
+        <img src="{% static 'images/correct_ans1.png' %}" class="card-img-top" alt="...">
+        <div class="card-body text-center border-top border-success mt-2">
+            <h5 class="card-text text-success fw-bold">Hurray You are looking great today.<br>
+                Keep it up.</h5>
+            <a href="{% url 'judge:problems' %}" class="card-link fw-bold fs-5 btn btn-outline-success m-3">Problems</a>
+            <a href="{% url 'judge:submissions' %}" class="card-link fw-bold fs-5 btn btn-outline-success m-3">Submissions</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock body %}
