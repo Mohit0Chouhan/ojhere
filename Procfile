@@ -1,1 +1,3 @@
-web: gunicorn online_judge.wsgi --log-file -
+web: gunicorn online_judge.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
